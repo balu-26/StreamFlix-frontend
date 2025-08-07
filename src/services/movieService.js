@@ -2,7 +2,7 @@
 
 const API_BASE =
   process.env.NODE_ENV === 'production'
-    ? 'https://streamflix-api-b8hed0fwe6facnhs.centralus-01.azurewebsites.net/api/movies'
+    ? 'https://streamapi-d2a8adfjdphsb2dk.canadaeast-01.azurewebsites.net/api/movies'
     : 'http://localhost:5178/api/movies';
 
 // ✅ Fetch all movies
