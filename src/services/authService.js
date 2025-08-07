@@ -1,6 +1,6 @@
 import axios from 'axios'; 
 
- const API_BASE = 'https://streamapi-d2a8adfjdphsb2dk.canadaeast-01.azurewebsites.net/api/auth';
+ const API_BASE = 'https://streamflix-api-b8hed0fwe6facnhs.centralus-01.azurewebsites.net/api/auth';
 
 export const login = async ({ email, password }) => {
   try {
