@@ -1,25 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 
-function App() {
+// Components
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+
+// Pages
+import Home from './pages/Home';
+import Browse from './pages/Browse';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Profile from './pages/Profile';
+import Watch from './pages/Watch';
+import ForgotPassword from './pages/ForgotPassword';
+import AdminDashboard from './pages/AdminDashboard';
+
+// Context
+import { AuthProvider } from './context/AuthContext';
+
+const App = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <Navbar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<Home />} />
+        <Route path="/browse" element={<Browse searchTerm={searchTerm} />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+
+        {/* Dynamic Movie Watch Route */}
+        <Route path="/watch/:id" element={<Watch />} />
+
+        {/* User Route */}
+        <Route path="/profile" element={<Profile />} />
+
+        {/* Admin Route */}
+        <Route path="/admin" element={<AdminDashboard />} />
+
+        {/* Optional: 404 fallback */}
+        {/* <Route path="*" element={<NotFound />} /> */}
+      </Routes>
+
+      <Footer />
+    </AuthProvider>
   );
-}
+};
 
 export default App;
