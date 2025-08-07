@@ -1,11 +1,14 @@
 // src/services/movieService.js
 
-const API_URL = 'http://localhost:5178/api/movies';
+const API_BASE =
+  process.env.NODE_ENV === 'production'
+    ? 'https://streamflix-api-b8hed0fwe6facnhs.centralus-01.azurewebsites.net/api/movies'
+    : 'http://localhost:5178/api/movies';
 
 // Get all movies
 export const fetchMovies = async () => {
   try {
-    const res = await fetch(API_URL);
+    const res = await fetch(API_BASE);
     if (!res.ok) throw new Error('Failed to fetch movies');
     return await res.json();
   } catch (error) {
@@ -17,7 +20,7 @@ export const fetchMovies = async () => {
 // Add a new movie
 export const addMovie = async (movie) => {
   try {
-    const res = await fetch(API_URL, {
+    const res = await fetch(API_BASE, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(movie),
@@ -33,7 +36,7 @@ export const addMovie = async (movie) => {
 // Delete a movie by ID
 export const deleteMovie = async (id) => {
   try {
-    const res = await fetch(`${API_URL}/${id}`, {
+    const res = await fetch(`${API_BASE}/${id}`, {
       method: 'DELETE',
     });
     if (!res.ok) throw new Error('Failed to delete movie');
@@ -42,10 +45,10 @@ export const deleteMovie = async (id) => {
   }
 };
 
-// Optional: Get a movie by DB ID (not IMDb ID)
+// Get movie by database ID
 export const getMovieById = async (id) => {
   try {
-    const res = await fetch(`${API_URL}/${id}`);
+    const res = await fetch(`${API_BASE}/${id}`);
     if (!res.ok) throw new Error('Failed to fetch movie');
     return await res.json();
   } catch (error) {

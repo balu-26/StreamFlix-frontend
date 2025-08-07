@@ -1,21 +1,21 @@
-import axios from 'axios';
+import axios from 'axios'; 
 
-const API_BASE = 'http://localhost:5178/api/auth'; // ✅ Updated to match your .NET backend port
+const API_BASE = 'https://streamflix-api-b8hed0fwe6facnhs.centralus-01.azurewebsites.net/api/auth';
 
 export const login = async ({ email, password }) => {
   try {
-    const res = await axios.post('http://localhost:5178/api/auth/login', { email, password });
+    const res = await axios.post(`${API_BASE}/login`, { email, password });
 
     if (res.data && res.data.username) {
       localStorage.setItem('username', res.data.username);
     }
 
     return true;
-  } catch {
+  } catch (err) {
+    console.error("Login failed:", err.response?.data || err.message);
     return false;
   }
 };
-
 
 export const register = async ({ username, email, password }) => {
   try {
@@ -24,7 +24,7 @@ export const register = async ({ username, email, password }) => {
     localStorage.setItem('username', username); // Store for profile display
     return true;
   } catch (err) {
-    console.error("Register failed:", err);
+    console.error("Register failed:", err.response?.data || err.message);
     return false;
   }
 };
