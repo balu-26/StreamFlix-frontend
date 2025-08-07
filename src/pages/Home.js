@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
+
  // make sure this CSS file exists
 
 const Home = () => {
